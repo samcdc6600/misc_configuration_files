@@ -1,0 +1,3 @@
+The "_" in "_.config" should be removed. It is only there to make sure the file
+shows up when not using a terminal (oh and the -a option. But I almost always
+use -lah.)

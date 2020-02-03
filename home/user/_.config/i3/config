@@ -1,0 +1,186 @@
+#-------------------------------------------------------------------------------
+#-----------------------------< NAV-KEY COMMAND ETC >---------------------------
+#-------------------------------------------------------------------------------
+
+
+set $mod Mod4
+
+# Use Mouse+$mod to draw floating windows to their wanted position
+floating_modifier $mod
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change the container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focuse between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focuse the parent container
+bindsym $mod+a focus parent
+
+# Focuse the child container
+#bindsym $mod+d focus child
+
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+ctrl+1 workspace 11
+bindsym $mod+ctrl+2 workspace 12
+bindsym $mod+ctrl+3 workspace 13
+bindsym $mod+ctrl+4 workspace 14
+bindsym $mod+ctrl+5 workspace 15
+bindsym $mod+ctrl+6 workspace 16
+bindsym $mod+ctrl+7 workspace 17
+bindsym $mod+ctrl+8 workspace 18
+bindsym $mod+ctrl+9 workspace 19
+bindsym $mod+ctrl+0 workspace 20
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+ctrl+Shift+1 move container to workspace 11
+bindsym $mod+ctrl+Shift+2 move container to workspace 12
+bindsym $mod+ctrl+Shift+3 move container to workspace 13
+bindsym $mod+ctrl+Shift+4 move container to workspace 14
+bindsym $mod+ctrl+Shift+5 move container to workspace 15
+bindsym $mod+ctrl+Shift+6 move container to workspace 16
+bindsym $mod+ctrl+Shift+7 move container to workspace 17
+bindsym $mod+ctrl+Shift+8 move container to workspace 18
+bindsym $mod+ctrl+Shift+9 move container to workspace 19
+bindsym $mod+ctrl+Shift+0 move container to workspace 20
+
+
+# Resize window (you can also use the mouse)
+mode "resize" {
+     bindsym j resize shrink width 5 px or 1 ppt
+     bindsym k resize grow height 5 px or 1 ppt
+     bindsym l resize shrink height 5 px or 1 ppt
+     bindsym semicolon resize grow width 5 px or 1 ppt
+
+     # Back to normal: Enter or Escape
+     bindsym Return mode "default"
+     bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+#-------------------------------------------------------------------------------
+#-------------------< NAV-KEY COMMAND TO START PROGRAMS ETC >-------------------
+#-------------------------------------------------------------------------------
+
+
+# Start a terminal
+bindsym $mod+Return exec sakura
+
+# Start dmenu (a program lanucher)
+bindsym $mod+d exec dmenu_run
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Lock Computer (our lock script doesn't put the computer to sleep because
+# sometimes i3 freezes upon waking up. We think this has something to do with
+# the video driver (we are using an r9 290 and some radion driver (obviously).))
+bindcode 108 exec ~/.config/i3/configdir/lock.sh
+
+# Set up volume key bindings
+# ...
+
+
+#-------------------------------------------------------------------------------
+#------------------------< STARTUP SCRIPTS AND PROGRAMS >-----------------------
+#-------------------------------------------------------------------------------
+
+
+# Set up monitors
+exec --no-startup-id ~/.config/i3/configdir/scrconf.sh
+# Swap ctrl & caps
+exec --no-startup-id ~/.config/i3/configdir/keysconfig.sh
+# Set background
+exec --no-startup-id ~/.config/i3/configdir/background.sh
+# Enable alpha
+#exec --nostartup-id xcompmgr
+exec --no-startup-id ~/.config/i3/configdir/xcomp.sh
+
+
+#-------------------------------------------------------------------------------
+#---------------------------------< STATUS BAR >--------------------------------
+#-------------------------------------------------------------------------------
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar
+{
+	status_command i3status
+	mode hide
+	hidden_state hide
+	modifier Mod4
+	position bottom
+	tray_padding 0
+	font pango:Luxi Mono Oblique 11
+	colors
+	{
+		background	#070012
+		statusline	#facaaa
+		separator	#dd00ff
+		focused_workspace	#84ffdc #0f0fff #facaaa
+		active_workspace	#84ffdc #940000 #84ffdc
+		inactive_workspace	#ff003e #facaaa #0f0fff
+		urgent_workspace	#84ffdc #ff0000 #84ffdc
+	}
+}
+
+
+#-------------------------------------------------------------------------------
+#------------------------------< THEAM AND COLORS >-----------------------------
+#-------------------------------------------------------------------------------
+
+# Get rid of those pesky pixel wasting edge borders >:(
+hide_edge_borders both
+# Smaller different font!
+font pango:DejaVu Sans Mono 7.5
